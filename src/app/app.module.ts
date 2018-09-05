@@ -12,6 +12,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EditComponent } from './components/edit/edit.component';
 import { AuthenGuardService } from './services/authen-guard.service';
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { UpperPipe } from './pipes/upper.pipe';
 
 const routeTable: Route[] = [
   {
@@ -50,7 +51,8 @@ const routeTable: Route[] = [
     InstagramComponent,
     LoginComponent,
     DashboardComponent,
-    EditComponent
+    EditComponent,
+    UpperPipe
   ],
   imports: [
     BrowserModule,
