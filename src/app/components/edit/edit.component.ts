@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BnkService } from '../../services/bnk.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Member } from '../../models/member';
+import { UrlValidator } from '../../validators/url-validator';
 
 @Component({
   selector: 'app-edit',
@@ -21,14 +22,23 @@ export class EditComponent implements OnInit {
   ngOnInit() {
     this.bnk.member(this.route.snapshot.paramMap.get('id'))
       .subscribe((data: Member) => {
-        this.editForm = this.builder.group(data);
+        this.editForm = this.builder.group({
+          _id: data._id,
+          name: [data.name, Validators.required],
+          imgUrl: [data.imgUrl, UrlValidator.validate],
+          instagramId: data.instagramId
+        });
       });
   }
 
   save() {
-    this.bnk.saveMember(this.editForm.value).subscribe(_ => {
-      this.router.navigate(['/dashboard']);
-    });
+    if (this.editForm.valid) {
+      this.bnk.saveMember(this.editForm.value).subscribe(_ => {
+        this.router.navigate(['/dashboard']);
+      });
+    } else {
+      console.log(this.editForm.get('imgUrl').getError('url'));
+    }
   }
 
   cancel() {
