@@ -1,0 +1,12 @@
+<div class="container mt-5">
+  <div class="row">
+    <div *ngFor="let mem of members" style="cursor:pointer;" [routerLink]="['/instagram', mem.instagramId]" class="col-sm-4">
+      <div class="card mb-3">
+        <img class="card-img-top" width="100%" height="300" [src]="mem.imgUrl" style="object-fit: cover">
+        <div class="card-footer text-center">
+          {{ mem.name }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

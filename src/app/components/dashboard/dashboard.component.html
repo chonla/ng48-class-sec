@@ -1,0 +1,23 @@
+<div class="container mt-5">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let mem of members">
+        <td>
+          <div class="media">
+            <img [src]="mem.imgUrl" class="mr-2 img-cover" width="50" height="50">
+            <div class="media-body">
+              <h5 class="mt-0">{{ mem.name }}</h5>
+            </div>
+          </div>
+        </td>
+        <td><a [routerLink]="['/edit', mem._id]">Edit</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
