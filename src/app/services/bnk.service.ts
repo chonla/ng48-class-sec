@@ -4,14 +4,13 @@ import { Observable } from 'rxjs';
 import { Member } from '../models/member';
 import { Feed } from '../models/feed';
 import { environment } from '../../environments/environment';
-import { AuthenService } from './authen.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BnkService {
 
-  constructor(private http: HttpClient, private authen: AuthenService) {
+  constructor(private http: HttpClient) {
   }
 
   public memberList(): Observable<Member[]> {
@@ -23,12 +22,7 @@ export class BnkService {
   }
 
   public saveMember(data: Member): Observable<any> {
-    const token = this.authen.getToken();
-    return this.http.patch(`${environment.apiHost}/bnk/members/${data._id}`, data, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+    return this.http.patch(`${environment.apiHost}/bnk/members/${data._id}`, data);
   }
 
   public instagram(instagramId: string): Observable<Feed> {

@@ -5,12 +5,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InstagramComponent } from './components/instagram/instagram.component';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EditComponent } from './components/edit/edit.component';
 import { AuthenGuardService } from './services/authen-guard.service';
+import { TokenInterceptor } from './interceptors/token.interceptor';
 
 const routeTable: Route[] = [
   {
@@ -58,7 +59,11 @@ const routeTable: Route[] = [
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
